@@ -17,7 +17,7 @@ public class Dados {
 	@GeneratedValue
 	private Long id;
 
-	@Column(name = "tipo_documento")
-	private String tipoDocumento;
+	@Column(name = "name")
+	private String name;
 
 }
