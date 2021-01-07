@@ -11,5 +11,4 @@ public class MotorSrccApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MotorSrccApplication.class, args);
 	}
-
 }

@@ -1,4 +1,4 @@
-package br.com.itau.integrador.interfaces;
+package br.com.itau.integrador.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
