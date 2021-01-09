@@ -92,20 +92,7 @@ public class LiquidacaoContratoService {
 	}
 
 
-	/**
-	 * Compara somente o mês e o ano entre duas datas
-	 * @param Data 1 e Data 2
-	 * @return
-	 */
-	private boolean compararMesAnoEntreDatas(Date data1, Date data2) {
-		Calendar cal1 = Calendar.getInstance();
-		Calendar cal2 = Calendar.getInstance();
-		cal1.setTime(data1);
-		cal2.setTime(data2);
-		boolean mesmoMesAno = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-		              cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH);
-		return mesmoMesAno;
-	}
+
 
 
 	private void alterarRegistroNaCIP(ContratoPortabilidade contratoPortabilidade) {
@@ -126,23 +113,31 @@ public class LiquidacaoContratoService {
 	}
 
 
+	/**
+	 * Método responsável por enviar o contrato a ser registrado na CIP
+	 * @param contratoPortabilidade
+	 */
 	private void registrarNaCIP(ContratoPortabilidade contratoPortabilidade) {
-		//1.	Enviar Json com a respectiva operação (registro/inativação/alteração) pra CIP
+		//1.Montar Json	com a respectiva operação (registro/inativação/alteração) pra CIP
+		//2. Enviar Json 
+			//[PENDENTE] descobrir forma de comunicação com a CIP
+		String jsonEnviarCIP = "jsonEnviarCIP";
+		
 			//a. Guardar numa lista em memória 
 
 		//2.	CIP envia o retorno (com sucesso ou fracasso da operação)
+		String jsonRetornoCIP = "jsonRetornoCIP";
 		
 		//3.	MS ao receber o retorno da CIP salva (criar uma coluna para cada item abaixo):
 			//a.	Json de envio
 			//b.	Json de retorno da CIP (contém a situação de sucesso ou fracasso)
-
+		salvarContratoPortabilidade(contratoPortabilidade);
 		
 	}
 
 	
-	public void salvarContratoPortabilidade(String strContratoPortabilidade) {
+	public void salvarContratoPortabilidade(ContratoPortabilidade contratoPortabilidade) {
 		
-		ContratoPortabilidade contratoPortabilidade = new Gson().fromJson(strContratoPortabilidade.toString(), ContratoPortabilidade.class);
 		//envio pra CIP
 		
 		//recebimento retorno CIP
