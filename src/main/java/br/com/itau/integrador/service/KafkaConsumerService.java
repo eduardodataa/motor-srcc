@@ -11,11 +11,15 @@ import com.google.gson.Gson;
 
 import br.com.itau.integrador.entity.ContratoPortabilidade;
 import br.com.itau.integrador.entity.Endereco;
+import br.com.itau.integrador.repositories.SalvarEnderecoRepository;
+import br.com.itau.integrador.validation.LiquidacaoContratoValidation;
 
 @Service
 public class KafkaConsumerService {
 
-
+	@Autowired
+	private SalvarEnderecoRepository salvarEnderecoRepository;
+	
 	@Autowired
 	public LiquidacaoContratoService liquidacaoContratoService; 
 	
@@ -29,11 +33,12 @@ public class KafkaConsumerService {
 	public void getMessage(String message) {
 
 		try {
+			//representa o envio da informação 
 			servicoCepFake(message);
 
-			ContratoPortabilidade contratoPortabilidade = carregarJson(message);
-			liquidacaoContratoValidation.validarAtributosMotorSRCC(contratoPortabilidade);
-			liquidacaoContratoService.motorRegrasContrato(contratoPortabilidade);
+//			ContratoPortabilidade contratoPortabilidade = carregarJson(message);
+//			liquidacaoContratoValidation.validarAtributosMotorSRCC(contratoPortabilidade);
+//			liquidacaoContratoService.motorRegrasContrato(contratoPortabilidade);
 //		} catch (LiquidacaoContratoServiceException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -52,9 +57,8 @@ public class KafkaConsumerService {
 		Endereco cep = mapper.readValue(message.toString(), Endereco.class);
 
 		Endereco endereco = cepService.buscaEnderecoPorCep(cep.getCep().toString());
-		System.out.println(endereco.getCep());
-		System.out.println(endereco.getBairro());
-		System.out.println(endereco.getLogradouro());
+		
+		salvarEnderecoRepository.save(endereco);
 
 	}
 

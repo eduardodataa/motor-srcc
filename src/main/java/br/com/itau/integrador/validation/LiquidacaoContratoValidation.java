@@ -1,4 +1,4 @@
-package br.com.itau.integrador.service;
+package br.com.itau.integrador.validation;
 
 
 import org.springframework.stereotype.Service;
